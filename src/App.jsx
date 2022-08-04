@@ -11,23 +11,32 @@ import Repeticao from "./components/basicos/Repeticao";
 import Condicional from "./components/basicos/Condicional";
 import CondicionalComIf from "./components/basicos/CondicionalComIf";
 
+import Pai from "./components/comunicacao/direta/Pai";
+import Super from "./components/comunicacao/indireta/Super";
+
 export default () => (
   <div className="app">
-    <Card titulo="#06 - Componente Condicional Com If">
+    <Card titulo="#08 - Componente Comunicação indireta" color="#85E81E">
+      <Super />
+    </Card>
+    <Card titulo="#07 - Componente Comunicação direta" color="#E8891E">
+      <Pai sobrenome="Calegari" />
+    </Card>
+    <Card titulo="#06 - Componente Condicional Com If" color="#72DEC2">
       <CondicionalComIf numero={1} />
     </Card>
     é
-    <Card titulo="#05 - Componente Condicional">
+    <Card titulo="#05 - Componente Condicional" color="#DE728E">
       <Condicional numero={11} />
     </Card>
-    <Card titulo="#04 - Componente Repetição">
+    <Card titulo="#04 - Componente Repetição" color="#C4DE72">
       <Repeticao />
     </Card>
-    <Card titulo="#03 - Componente Com Parametros">
+    <Card titulo="#03 - Componente Com Parametros" color="#8C72DE">
       <ComParametros titulo="Título 1" subtitulo="Subtítulo 1" />
       <ComParametros titulo="Título 2" subtitulo="Subtítulo 2" />{" "}
     </Card>
-    <Card titulo="#02 - Componente Com Filhos">
+    <Card titulo="#02 - Componente Com Filhos" color="#DEC272">
       <ComFilhos>
         <div>Primeiro</div>
         <ul>
