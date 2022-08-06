@@ -3,19 +3,19 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
 import { ListaVetores } from "../components/ListaVetores";
 
-type Vetores = {
-  _id: string;
-  vetor: Array<number>;
-  dataHora: string;
-  __v: number;
-};
+// type Vetores = {
+//   _id: string;
+//   vetor: Array<number>;
+//   dataHora: string;
+//   __v: number;
+// };
 
 export function AppRoutes() {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<TamanhoVetores />} />
-        {Array(10)
+        {Array(1000)
           .fill(0)
           .map((_, index) => (
             <Route
@@ -30,10 +30,10 @@ export function AppRoutes() {
 
 function TamanhoVetores() {
   const [tamanho, setTamanho] = useState(1);
-  const [vetores, setVetores] = useState<Vetores[]>([]);
+  const [vetores, setVetores] = useState<string[]>([]);
 
   useEffect(() => {
-    fetch("https://ic-iot.herokuapp.com/api/vetores/coletar")
+    fetch("https://ic-iot.herokuapp.com/api/vetores/coletarid")
       .then((res) => res.json())
       .then((data) => {
         setVetores(data);
@@ -142,11 +142,11 @@ function TamanhoVetores() {
 }
 
 function VetoresEncontrados(props) {
-  const [vetores, setVetores] = useState<Vetores[]>([]);
+  const [vetores, setVetores] = useState<string[]>([]);
   const [formato, setFormato] = useState("JSON");
 
   useEffect(() => {
-    fetch("https://ic-iot.herokuapp.com/api/vetores/coletar")
+    fetch("https://ic-iot.herokuapp.com/api/vetores/coletarid")
       .then((res) => res.json())
       .then((data) => {
         setVetores(data);
@@ -190,6 +190,8 @@ function VetoresEncontrados(props) {
             padding: "1rem",
             marginBottom: "1rem",
             opacity: "0.8",
+            maxHeight: "500px",
+            overflowY: "auto",
           }}
         >
           <ListaVetores vetores={vetores} max={props.range} format={formato} />

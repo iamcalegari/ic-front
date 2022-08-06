@@ -2,15 +2,15 @@ import React, { useEffect, useState } from "react";
 
 import { ListaVetores } from "../../components/ListaVetores";
 
-type Vetores = {
-  _id: string;
-  vetor: Array<number>;
-  dataHora: string;
-  __v: number;
-};
+// type Vetores = {
+//   _id: string;
+//   vetor: Array<number>;
+//   dataHora: string;
+//   __v: number;
+// };
 
 export function VetoresEncontrados(props) {
-  const [vetores, setVetores] = useState<Vetores[]>([]);
+  const [vetores, setVetores] = useState<string[]>([]);
 
   useEffect(() => {
     fetch("https://ic-iot.herokuapp.com/api/vetores/coletar")

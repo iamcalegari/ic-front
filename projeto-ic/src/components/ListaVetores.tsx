@@ -3,24 +3,30 @@ import { Link } from "react-router-dom";
 
 export function ListaVetores(props) {
   function listarVetores(
-    vetores: Array<{
-      _id: string;
-      vetor: Array<number>;
-      dataHora: string;
-      __v: number;
-    }>
+    // vetores: Array<{
+    //   _id: string;
+    //   vetor: Array<number>;
+    //   dataHora: string;
+    //   __v: number;
+    // }>
+    vetores: Array<string>
   ) {
-    return vetores.map((vetor, index) => {
-      if (index + 1 <= props.max) {
-        return (
-          <Link to={`/vetores/${vetor._id}/baixar/${props.format}`}>
-            <li key={vetor._id}>
-              <strong>Vetor {index + 1}</strong>
-              {" - "}({vetor.vetor.length} elementos)
-            </li>
-          </Link>
-        );
-      }
+    return vetores.slice(0, props.max).map((id, index) => {
+      console.log(props.max);
+      return (
+        <Link to={`/vetores/${id}/baixar/${props.format}`}>
+          <li
+            key={id}
+            style={{
+              fontSize: "1.2rem",
+            }}
+          >
+            <strong>
+              Vetor {index + 1} - ({id})
+            </strong>
+          </li>
+        </Link>
+      );
     });
   }
 
