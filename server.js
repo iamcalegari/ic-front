@@ -3,7 +3,7 @@ import { resolve } from "path";
 
 const app = express();
 
-app.use("/", express.static(resolve(__dirname, "public")));
+app.use("/", express.static(resolve(__dirname, "./dist")));
 
 app.listen(process.env.PORT || 3000, (err) => {
   if (err) {
