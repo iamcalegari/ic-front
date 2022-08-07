@@ -1,9 +1,10 @@
-import express from "express";
+const express = require("express");
+
 import { resolve } from "path";
 
 const app = express();
 
-app.use("/", express.static(resolve(__dirname, "./dist")));
+app.use(Express.static(resolve(__dirname, "public")));
 
 app.listen(process.env.PORT || 3000, (err) => {
   if (err) {

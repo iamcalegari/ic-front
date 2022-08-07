@@ -10,7 +10,7 @@ import { ListaVetores } from "../../components/ListaVetores";
 // };
 
 export function VetoresEncontrados(props) {
-  const [vetores, setVetores] = useState<string[]>([]);
+  const [vetores, setVetores] = useState([]);
 
   useEffect(() => {
     fetch("https://ic-iot.herokuapp.com/api/vetores/coletar")

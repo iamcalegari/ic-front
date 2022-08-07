@@ -9,7 +9,7 @@ export function ListaVetores(props) {
     //   dataHora: string;
     //   __v: number;
     // }>
-    vetores: Array<string>
+    vetores
   ) {
     return vetores.slice(0, props.max).map((id, index) => {
       console.log(props.max);

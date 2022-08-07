@@ -30,7 +30,7 @@ export function AppRoutes() {
 
 function TamanhoVetores() {
   const [tamanho, setTamanho] = useState(1);
-  const [vetores, setVetores] = useState<string[]>([]);
+  const [vetores, setVetores] = useState([]);
 
   useEffect(() => {
     fetch("https://ic-iot.herokuapp.com/api/vetores/coletarid")
@@ -142,7 +142,7 @@ function TamanhoVetores() {
 }
 
 function VetoresEncontrados(props) {
-  const [vetores, setVetores] = useState<string[]>([]);
+  const [vetores, setVetores] = useState([]);
   const [formato, setFormato] = useState("JSON");
 
   useEffect(() => {
