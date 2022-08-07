@@ -1,5 +1,5 @@
 import express from "express";
-const { resolve } = require("path");
+import { resolve } from "path";
 
 const app = express();
 
