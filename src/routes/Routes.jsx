@@ -208,8 +208,8 @@ function VetoresEncontrados(props) {
             padding: "1rem",
           }}
         >
-          <Link
-            to={`https://ic-iot.herokuapp.com/api/vetores/${props.range}/baixarall/${formato}`}
+          <a
+            href={`https://ic-iot.herokuapp.com/api/vetores/${props.range}/baixarall/${formato}`}
           >
             <button
               style={{
@@ -226,7 +226,7 @@ function VetoresEncontrados(props) {
             >
               Baixar todos
             </button>
-          </Link>
+          </a>
           <select
             style={{
               width: "5rem",
