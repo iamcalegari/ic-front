@@ -14,7 +14,9 @@ export function ListaVetores(props) {
     return vetores.slice(0, props.max).map((id, index) => {
       console.log(props.max);
       return (
-        <Link to={`/vetores/${id}/baixar/${props.format}`}>
+        <Link
+          to={`https://ic-iot.herokuapp.com/api/vetores/${id}/baixar/${props.format}`}
+        >
           <li
             key={id}
             style={{

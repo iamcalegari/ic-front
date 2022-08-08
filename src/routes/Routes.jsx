@@ -143,7 +143,7 @@ function TamanhoVetores() {
 
 function VetoresEncontrados(props) {
   const [vetores, setVetores] = useState([]);
-  const [formato, setFormato] = useState("JSON");
+  const [formato, setFormato] = useState("json");
 
   useEffect(() => {
     fetch("https://ic-iot.herokuapp.com/api/vetores/coletarid")
@@ -208,7 +208,9 @@ function VetoresEncontrados(props) {
             padding: "1rem",
           }}
         >
-          <Link to={`/vetores/${props.range}/baixarall/${formato}`}>
+          <Link
+            to={`https://ic-iot.herokuapp.com/api/vetores/${props.range}/baixarall/${formato}`}
+          >
             <button
               style={{
                 width: "30rem",
@@ -239,8 +241,8 @@ function VetoresEncontrados(props) {
             value={formato}
             onChange={(e) => setFormato(e.target.value)}
           >
-            <option value="JSON">.json</option>
-            <option value="TXT">.txt</option>
+            <option value="json">.json</option>
+            <option value="txt">.txt</option>
           </select>
         </div>
       </div>
