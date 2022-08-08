@@ -20,7 +20,7 @@ export function ListaVetores(props) {
           <li
             key={id}
             style={{
-              fontSize: "1.2rem",
+              fontSize: "1.3rem",
             }}
           >
             <strong>
