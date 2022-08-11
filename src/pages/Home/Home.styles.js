@@ -79,7 +79,7 @@ export const StyledLink = styled.div`
   padding: 0.5rem 0rem 0.5rem 0rem;
   width: 100%;
   height: 2rem;
-  background-color: #0d6efd;
+  background-color: rgba(13, 110, 253, 0.7);
   font-size: 1.5rem;
   color: #fff;
   text-decoration: none;
