@@ -14,7 +14,7 @@ const ListaVetores = ({ vetores, max, format }) => {
     return vetores.slice(0, +max).map((vetor, index) => {
       return (
         <StyledAnchor href={`${baseUrlApi + vetor.id}/baixar/${format}`}>
-          <ListItem key={id}>
+          <ListItem key={vetor.id}>
             <Text>
               Vetor {index + 1} - (tamanho: {vetor.tamanho})
             </Text>
