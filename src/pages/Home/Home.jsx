@@ -48,7 +48,8 @@ const Home = () => {
       <ContentWrapper>
         <MainContainer>
           <InputTitle>
-            Quantidade de vetores disponíveis: <strong>{vetores.length}</strong>
+            Quantidade de vetores disponíveis:{" "}
+            <strong>{vetores.id.length}</strong>
           </InputTitle>
 
           <InputWrapper>
