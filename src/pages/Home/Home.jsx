@@ -56,14 +56,14 @@ const Home = () => {
             <Slider
               type="range"
               min="1"
-              max={`${vetores.length}`}
+              max={`${vetores.id.length}`}
               value={tamanho}
               onChange={(e) => setTamanho(e.target.valueAsNumber)}
             />
             <DisplayCounter
               type="number"
               name="tamanho"
-              max={`${vetores.length}`}
+              max={`${vetores.id.length}`}
               value={tamanho}
               onChange={(e) => setTamanho(e.target.valueAsNumber)}
             />
