@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import ListaVetores from "../../components/ListaVetores";
+import ListaVetores from "../../components/ListaVetores/ListaVetores";
 import {
   ContentWrapper,
   HeaderList,
