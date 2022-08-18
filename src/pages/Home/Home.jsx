@@ -27,6 +27,7 @@ const Home = () => {
         if (res.status === 200) {
           const data = await res.json();
           setVetores(data);
+          console.log(data);
           localStorage.setItem("vetoresId", data.id);
           localStorage.setItem("vetoresTamanho", data.tamanho);
         } else {
