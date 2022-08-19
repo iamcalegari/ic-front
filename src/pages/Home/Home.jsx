@@ -27,7 +27,7 @@ const Home = () => {
         const res = await fetch(apiColetarId);
         if (res.status === 200) {
           const data = await res.json();
-          setVetores(data);
+          setVetores(data.id);
           console.log(data.id);
           localStorage.setItem("vetoresId", data.id);
           localStorage.setItem("vetoresTamanho", data.tamanho);
