@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { saveAs } from "file-saver";
-import sleep from "../../utils";
+import React, { useState } from "react";
+import coletarUrls from "../../components/ColetarUrls";
 
 import ListaVetores from "../../components/ListaVetores/ListaVetores";
 import {
@@ -9,7 +8,7 @@ import {
   HeaderList,
   InputWrapper,
   Select,
-  // StyledLink,
+  StyledLink,
   SubmitWrapper,
   Subtitle,
   Title,
@@ -28,71 +27,43 @@ const VetoresEncontrados = () => {
   );
 
   const [formato, setFormato] = useState("json");
-  const [urlJson, setUrlJson] = useState([]);
-  const [urlTxt, setUrlTxt] = useState([]);
-  const [filenameJson, setFilenameJson] = useState([]);
-  const [filenameTxt, setFilenameTxt] = useState([]);
+
+  const [count, setCount] = useState(0);
 
   const urlSearchParams = new URLSearchParams(window.location.search);
   const range = urlSearchParams.get("range");
 
-  // const [apiColetar, setApiColetar] = useState(
-  //   `https://ic-iot.herokuapp.com/api/vetores/${range}/baixarall/json`
-  // );
+  const urls = coletarUrls(range);
+  console.log(urls);
 
-  // async function coletar(rang, format) {}
-  const apiColetarJson = `https://ic-iot.herokuapp.com/api/vetores/${range}/baixarall/json`;
-  const apiColetarTxt = `https://ic-iot.herokuapp.com/api/vetores/${range}/baixarall/txt`;
-  // const apiColetarId = `http://localhost:3000/api/vetores/${range}/baixarall/${formato}`;
-  // console.log(apiColetarId);
+  const downloadJson = (urls) => {
+    return urls.map((url) => {
+      console.log(url);
+      return (
+        <div>
+          <iframe src={url} style={{ display: "none" }}></iframe>
+        </div>
+      );
+    });
+  };
+  const downloadTxt = (urls) => {
+    return urls.map((url) => {
+      console.log(url);
+      return (
+        <div>
+          <iframe src={url} style={{ display: "none" }}></iframe>
+        </div>
+      );
+    });
+  };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await fetch(apiColetarJson);
-        if (res.status === 200) {
-          const data = await res.json();
-          setUrlJson(data.url);
-          setFilenameJson(data.filename);
-        } else {
-          throw "Error";
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchData();
-  }, []);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await fetch(apiColetarTxt);
-        if (res.status === 200) {
-          const data = await res.json();
-          setUrlTxt(data.url);
-          setFilenameTxt(data.filename);
-        } else {
-          throw "Error";
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchData();
-  }, []);
-
-  console.log(`url[1]: ${urlJson[1]}`);
-  console.log(`url[1]: ${urlTxt[1]}`);
-  // const urlsDownload = () => {
-  //   return url.map((url, index) => {
-  //     return (
-  //       <a href={url} download={filename[index]}>
-  //         {filename[index]}
-  //       </a>
-  //     );
-  //   });
-  // };
+  const DownloadAll = ({ formato }) => {
+    if (formato === "json") {
+      return downloadJson(urls.urlJson);
+    } else {
+      return downloadTxt(urls.urlTxt);
+    }
+  };
 
   return (
     <VetoresEncontradosContainer>
@@ -112,38 +83,23 @@ const VetoresEncontrados = () => {
 
         <InputWrapper>
           <SubmitWrapper>
-            {/* <StyledLink>Baixar todos</StyledLink> */}
             <Button
-              onClick={async () => {
-                if (formato === "json") {
-                  return urlJson.forEach(async (e, index) => {
-                    fetch(e)
-                      .then((res) => {
-                        return res.blob();
-                      })
-                      .then(await sleep(1000))
-                      .then((blob) => {
-                        saveAs(blob, `${filenameJson[index]}`);
-                      });
-                  });
-                } else {
-                  return urlTxt.forEach(async (e, index) => {
-                    fetch(e)
-                      .then((res) => {
-                        return res.blob();
-                      })
-                      .then(await sleep(2000))
-                      .then((blob) => {
-                        saveAs(blob, `${filenameTxt[index]}`);
-                      });
-                  });
-                }
+              onClick={() => {
+                setCount(count + 1);
               }}
             >
               Baixar todos
             </Button>
+            {count && <DownloadAll formato={formato} />}
+            {count}
           </SubmitWrapper>
-          <Select value={formato} onChange={(e) => setFormato(e.target.value)}>
+          <Select
+            value={formato}
+            onChange={(e) => {
+              setCount(0);
+              setFormato(e.target.value);
+            }}
+          >
             <option value="json">.json</option>
             <option value="txt">.txt</option>
           </Select>

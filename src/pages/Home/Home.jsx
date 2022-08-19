@@ -29,7 +29,7 @@ const Home = () => {
           const data = await res.json();
           setId(data.id);
           // setSize(data.tamanho);
-          console.log(data.id);
+          // console.log(data.id);
           localStorage.setItem("vetoresId", data.id);
           localStorage.setItem("vetoresTamanho", data.tamanho);
         } else {

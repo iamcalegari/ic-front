@@ -75,6 +75,7 @@ export const Select = styled.select`
 `;
 
 export const SubmitWrapper = styled.a`
+  cursor: pointer;
   border-radius: 1.2rem;
   width: 100%;
   a {

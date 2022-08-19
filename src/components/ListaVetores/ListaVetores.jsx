@@ -5,7 +5,6 @@ import {
   ListContainer,
   ListItem,
   StyledAnchor,
-  Text,
 } from "./ListaVetores.styles";
 
 const ListaVetores = ({ vetoresTamanho, vetoresId, max, format }) => {
@@ -14,12 +13,12 @@ const ListaVetores = ({ vetoresTamanho, vetoresId, max, format }) => {
     return vetores.slice(0, +max).map((vet, index) => {
       return (
         <StyledAnchor
-          href={`${baseUrlApi + vetoresId[index]}/baixar/${format}`}
+          href={`${baseUrlApi + vetoresId[index]}/${
+            index + 1
+          }/baixar/${format}`}
         >
-          <ListItem key={vetoresId[index]}>
-            <Text>
-              Vetor {index + 1} - (tamanho: {vet})
-            </Text>
+          <ListItem>
+            Vetor {index + 1} - (tamanho: {vet})
           </ListItem>
         </StyledAnchor>
       );
