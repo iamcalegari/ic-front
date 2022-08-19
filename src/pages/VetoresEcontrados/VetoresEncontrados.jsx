@@ -91,7 +91,6 @@ const VetoresEncontrados = () => {
               Baixar todos
             </Button>
             {count && <DownloadAll formato={formato} />}
-            {count}
           </SubmitWrapper>
           <Select
             value={formato}
