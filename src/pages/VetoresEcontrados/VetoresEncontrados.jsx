@@ -16,9 +16,14 @@ import {
 } from "./VetoresEncontrados.styles";
 
 const VetoresEncontrados = () => {
-  const [vetores, setVetores] = useState(
+  const [vetoresId, setVetoresId] = useState(
     localStorage.getItem("vetoresId").split(",")
   );
+
+  const [vetoresTamanho, setVetoresTamanho] = useState(
+    localStorage.getItem("vetoresTamanho").split(",")
+  );
+
   const [formato, setFormato] = useState("json");
 
   const urlSearchParams = new URLSearchParams(window.location.search);
@@ -32,7 +37,12 @@ const VetoresEncontrados = () => {
       <ContentWrapper>
         <View>
           <HeaderList>Lista de Vetores</HeaderList>
-          <ListaVetores vetores={vetores} max={range} format={formato} />
+          <ListaVetores
+            vetoresTamanho={vetoresTamanho}
+            vetoresId={vetoresId}
+            max={range}
+            format={formato}
+          />
         </View>
 
         <InputWrapper>
