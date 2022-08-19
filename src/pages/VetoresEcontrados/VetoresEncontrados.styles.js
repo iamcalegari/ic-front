@@ -97,3 +97,20 @@ export const StyledLink = styled.div`
   color: #fff;
   text-decoration: none;
 `;
+
+export const Button = styled.button`
+  cursor: pointer;
+  font-family: Arial, Helvetica, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #03388a;
+  border-radius: 0.7rem;
+  padding: 0.5rem 0rem 0.5rem 0rem;
+  width: 100%;
+  height: 3rem;
+  background-color: rgba(13, 110, 253, 0.7);
+  font-size: 1.5rem;
+  color: #fff;
+  text-decoration: none;
+`;

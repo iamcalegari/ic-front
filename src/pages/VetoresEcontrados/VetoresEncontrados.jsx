@@ -3,6 +3,7 @@ import { saveAs } from "file-saver";
 
 import ListaVetores from "../../components/ListaVetores/ListaVetores";
 import {
+  Button,
   ContentWrapper,
   HeaderList,
   InputWrapper,
@@ -88,7 +89,7 @@ const VetoresEncontrados = () => {
         <InputWrapper>
           <SubmitWrapper>
             {/* <StyledLink>Baixar todos</StyledLink> */}
-            <button
+            <Button
               onClick={async () => {
                 return url.forEach((e, index) => {
                   fetch(e)
@@ -99,9 +100,8 @@ const VetoresEncontrados = () => {
                 });
               }}
             >
-              {" "}
-              Download
-            </button>
+              Baixar todos
+            </Button>
           </SubmitWrapper>
           <Select value={formato} onChange={(e) => setFormato(e.target.value)}>
             <option value="json">.json</option>
