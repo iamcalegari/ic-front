@@ -8,15 +8,17 @@ import {
   Text,
 } from "./ListaVetores.styles";
 
-const ListaVetores = ({ vetores, max, format }) => {
+const ListaVetores = ({ vetoresTamanho, vetoresId, max, format }) => {
   const baseUrlApi = "https://ic-iot.herokuapp.com/api/vetores/";
   const listarVetores = (vetores) => {
     return vetores.slice(0, +max).map((vet, index) => {
       return (
-        <StyledAnchor href={`${baseUrlApi + vet.id}/baixar/${format}`}>
-          <ListItem key={vet.id}>
+        <StyledAnchor
+          href={`${baseUrlApi + vetoresId[index]}/baixar/${format}`}
+        >
+          <ListItem key={vetoresId[index]}>
             <Text>
-              Vetor {index + 1} - (tamanho: {vet.tamanho})
+              Vetor {index + 1} - (tamanho: {vet})
             </Text>
           </ListItem>
         </StyledAnchor>
@@ -26,7 +28,7 @@ const ListaVetores = ({ vetores, max, format }) => {
 
   return (
     <ListContainer>
-      <List>{listarVetores(vetores)}</List>
+      <List>{listarVetores(vetoresTamanho)}</List>
     </ListContainer>
   );
 };
