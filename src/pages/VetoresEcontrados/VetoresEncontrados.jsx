@@ -34,8 +34,8 @@ const VetoresEncontrados = () => {
   const urlSearchParams = new URLSearchParams(window.location.search);
   const range = urlSearchParams.get("range");
 
-  // const apiColetarId = `https://ic-iot.herokuapp.com/api/vetores/${range}/baixarall/${formato}`;
-  const apiColetarId = `http://localhost:3000/api/vetores/${range}/baixarall/${formato}`;
+  const apiColetarId = `https://ic-iot.herokuapp.com/api/vetores/${range}/baixarall/${formato}`;
+  // const apiColetarId = `http://localhost:3000/api/vetores/${range}/baixarall/${formato}`;
   console.log(apiColetarId);
   useEffect(() => {
     const fetchData = async () => {
