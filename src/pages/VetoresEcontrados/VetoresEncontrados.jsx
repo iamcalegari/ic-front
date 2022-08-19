@@ -37,21 +37,21 @@ const VetoresEncontrados = () => {
   console.log(urls);
 
   const downloadJson = (urls) => {
-    return urls.map((url) => {
+    return urls.map((url, i) => {
       console.log(url);
       return (
         <div>
-          <iframe src={url} style={{ display: "none" }}></iframe>
+          <iframe src={url} key={i}></iframe>
         </div>
       );
     });
   };
   const downloadTxt = (urls) => {
-    return urls.map((url) => {
+    return urls.map((url, i) => {
       console.log(url);
       return (
         <div>
-          <iframe src={url} style={{ display: "none" }}></iframe>
+          <iframe src={url} key={i}></iframe>
         </div>
       );
     });
@@ -90,7 +90,9 @@ const VetoresEncontrados = () => {
             >
               Baixar todos
             </Button>
-            {count && <DownloadAll formato={formato} />}
+            <div style={{ display: "none" }}>
+              {count && <DownloadAll formato={formato}></DownloadAll>}
+            </div>
           </SubmitWrapper>
           <Select
             value={formato}

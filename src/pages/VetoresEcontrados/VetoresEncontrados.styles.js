@@ -74,7 +74,7 @@ export const Select = styled.select`
   font-size: 1rem;
 `;
 
-export const SubmitWrapper = styled.a`
+export const SubmitWrapper = styled.div`
   cursor: pointer;
   border-radius: 1.2rem;
   width: 100%;
