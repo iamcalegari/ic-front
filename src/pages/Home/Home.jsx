@@ -18,7 +18,6 @@ import {
 const Home = () => {
   const [tamanho, setTamanho] = useState(1);
   const [vetores, setVetores] = useState([]);
-  console.log(vetores);
   const apiColetarId = "https://ic-iot.herokuapp.com/api/vetores/coletarid";
 
   useEffect(() => {
@@ -49,22 +48,21 @@ const Home = () => {
       <ContentWrapper>
         <MainContainer>
           <InputTitle>
-            Quantidade de vetores disponíveis:{" "}
-            <strong>{vetores.id.length}</strong>
+            Quantidade de vetores disponíveis: <strong>{vetores.length}</strong>
           </InputTitle>
 
           <InputWrapper>
             <Slider
               type="range"
               min="1"
-              max={`${vetores.id.length}`}
+              max={`${vetores.length}`}
               value={tamanho}
               onChange={(e) => setTamanho(e.target.valueAsNumber)}
             />
             <DisplayCounter
               type="number"
               name="tamanho"
-              max={`${vetores.id.length}`}
+              max={`${vetores.length}`}
               value={tamanho}
               onChange={(e) => setTamanho(e.target.valueAsNumber)}
             />
