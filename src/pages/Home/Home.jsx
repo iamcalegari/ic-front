@@ -18,6 +18,7 @@ import {
 const Home = () => {
   const [tamanho, setTamanho] = useState(1);
   const [vetores, setVetores] = useState([]);
+  console.log(vetores);
   const apiColetarId = "https://ic-iot.herokuapp.com/api/vetores/coletarid";
 
   useEffect(() => {
