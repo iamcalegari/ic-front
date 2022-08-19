@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { saveAs } from "file-saver";
 
 import ListaVetores from "../../components/ListaVetores/ListaVetores";
 import {
@@ -24,10 +25,49 @@ const VetoresEncontrados = () => {
     localStorage.getItem("vetoresTamanho").split(",")
   );
 
+  const [url, setUrl] = useState([]);
+  const [filename, setFilename] = useState([]);
+  console.log(`url[1]: ${url[1]}`);
+
   const [formato, setFormato] = useState("json");
 
   const urlSearchParams = new URLSearchParams(window.location.search);
   const range = urlSearchParams.get("range");
+
+  // const apiColetarId = `https://ic-iot.herokuapp.com/api/vetores/${range}/baixarall/${formato}`;
+  const apiColetarId = `http://localhost:3000/api/vetores/${range}/baixarall/${formato}`;
+  console.log(apiColetarId);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await fetch(apiColetarId);
+        if (res.status === 200) {
+          const data = await res.json();
+          setUrl(data.url);
+          setFilename(data.filename);
+          console.log(data.url);
+          console.log(data.filename);
+          localStorage.setItem("url", data.url);
+          localStorage.setItem("filename", data.filename);
+        } else {
+          throw "Error";
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  // const urlsDownload = () => {
+  //   return url.map((url, index) => {
+  //     return (
+  //       <a href={url} download={filename[index]}>
+  //         {filename[index]}
+  //       </a>
+  //     );
+  //   });
+  // };
 
   return (
     <VetoresEncontradosContainer>
@@ -46,10 +86,22 @@ const VetoresEncontrados = () => {
         </View>
 
         <InputWrapper>
-          <SubmitWrapper
-            href={`https://ic-iot.herokuapp.com/api/vetores/${range}/baixarall/${formato}`}
-          >
-            <StyledLink>Baixar todos</StyledLink>
+          <SubmitWrapper>
+            {/* <StyledLink>Baixar todos</StyledLink> */}
+            <button
+              onClick={async () => {
+                return url.forEach((e, index) => {
+                  fetch(e)
+                    .then((res) => res.blob())
+                    .then((blob) => {
+                      saveAs(blob, filename[index]);
+                    });
+                });
+              }}
+            >
+              {" "}
+              Download
+            </button>
           </SubmitWrapper>
           <Select value={formato} onChange={(e) => setFormato(e.target.value)}>
             <option value="json">.json</option>
