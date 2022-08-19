@@ -103,7 +103,10 @@ const VetoresEncontrados = () => {
               Baixar todos
             </Button>
           </SubmitWrapper>
-          <Select value={formato} onChange={(e) => setFormato(e.target.value)}>
+          <Select
+            value={formato}
+            onChange={(ev) => setFormato(ev.target.value)}
+          >
             <option value="json">.json</option>
             <option value="txt">.txt</option>
           </Select>
