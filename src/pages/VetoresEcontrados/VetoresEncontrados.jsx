@@ -26,12 +26,16 @@ const VetoresEncontrados = () => {
     localStorage.getItem("vetoresTamanho").split(",")
   );
 
+  const [vetoresLeitura, setVetoresLeitura] = useState(
+    localStorage.getItem("vetoresLeitura").split(",")
+  );
+
   const [formato, setFormato] = useState("json");
 
   const [count, setCount] = useState(0);
 
   const urlSearchParams = new URLSearchParams(window.location.search);
-  const range = urlSearchParams.get("range");
+  const leituras = urlSearchParams.get("leituras");
 
   const urls = coletarUrls(range);
   console.log(urls);
@@ -74,8 +78,9 @@ const VetoresEncontrados = () => {
         <View>
           <HeaderList>Lista de Vetores</HeaderList>
           <ListaVetores
-            vetoresTamanho={vetoresTamanho}
             vetoresId={vetoresId}
+            vetoresLeitura={vetoresLeitura}
+            vetoresTamanho={vetoresTamanho}
             max={range}
             format={formato}
           />

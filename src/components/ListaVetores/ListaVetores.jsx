@@ -7,7 +7,13 @@ import {
   StyledAnchor,
 } from "./ListaVetores.styles";
 
-const ListaVetores = ({ vetoresTamanho, vetoresId, max, format }) => {
+const ListaVetores = ({
+  vetoresId,
+  vetoresLeitura,
+  vetoresTamanho,
+  max,
+  format,
+}) => {
   const baseUrlApi = "https://ic-iot.herokuapp.com/api/vetores/";
   const listarVetores = (vetores) => {
     return vetores.slice(0, +max).map((vet, index) => {
@@ -18,7 +24,8 @@ const ListaVetores = ({ vetoresTamanho, vetoresId, max, format }) => {
           }/baixar/${format}`}
         >
           <ListItem>
-            Vetor {index + 1} - (tamanho: {vet})
+            <stong>🔹Leitura {vetoresLeitura} - </stong>Vetor {index + 1} -
+            (tamanho: {vet})
           </ListItem>
         </StyledAnchor>
       );

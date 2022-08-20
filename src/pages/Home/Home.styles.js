@@ -84,3 +84,14 @@ export const StyledLink = styled.div`
   color: #fff;
   text-decoration: none;
 `;
+
+export const Select = styled.select`
+  width: 5rem;
+  height: 3.3rem;
+  border: 1px solid #ccc;
+  border-radius: 0.7rem;
+  padding: 0.5rem;
+  margin-left: 1rem;
+  background-color: #fff;
+  font-size: 1rem;
+`;
