@@ -17,46 +17,33 @@ import {
 } from "./Home.styles.js";
 
 const Home = () => {
-  const [leitura, setLeitura] = useState(1);
   const [count, setCount] = useState(1);
-  const apiColetarId =
-    "https://ic-iot.herokuapp.com/api/vetores/coletarid/todas";
+  const urlBase = "https://ic-iot.herokuapp.com/api/vetores/coletarid/";
 
-  Promise.all([
-    useEffect(() => {
-      const fetchData = async () => {
-        try {
-          const res = await fetch(apiColetarId);
-          if (res.status === 200) {
-            const data = await res.json();
-            // setId(data.id);
-            setLeitura(data.leitura);
-            localStorage.setItem("vetoresId", data.id);
-            localStorage.setItem("vetoresTamanho", data.tamanho);
-            localStorage.setItem("vetoresLeitura", data.leitura);
-          } else {
-            throw "Error";
-          }
-        } catch (error) {
-          console.error(error);
-        }
-      };
-      fetchData();
-    }, []),
-  ]);
+  const [apiColetarIdLeituras, setApiColetarIdLeituras] = useState(
+    `${urlBase}1`
+  );
 
-  const leiturasOptions = (leitura) => {
-    return leitura
-      .map((leitura, index) => {
-        return (
-          <option key={index} value={leitura}>
-            {leitura}
-          </option>
-        );
-      })
-      .reverse();
+  const fetchData = async (api, option) => {
+    try {
+      const res = await fetch(api);
+      if (res.status === 200) {
+        const data = await res.json();
+        // setId(data.id);
+        localStorage.setItem("vetoresId", data.id);
+        localStorage.setItem("vetoresTamanho", data.tamanho);
+        localStorage.setItem("vetoresLeitura", data.leitura);
+        localStorage.setItem("vetoresLeituraMax", data.leituraMax);
+      } else {
+        throw "Error";
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
-  console.log(`leitura: ${Math.max(...leitura)}`);
+  const leituraMax = localStorage.getItem("vetoresLeituraMax");
+  fetchData(apiColetarIdLeituras, "leituras");
+  let timeout;
   return (
     <HomeContainer>
       <Title>Interface de Download</Title>
@@ -65,23 +52,30 @@ const Home = () => {
       <ContentWrapper>
         <MainContainer>
           <InputTitle>
-            Quantidade de leituras: <strong>{Math.max(leitura)}</strong>
+            Quantidade de leituras: <strong>{leituraMax}</strong>
           </InputTitle>
 
           <InputWrapper>
             <Slider
               type="range"
               min="1"
-              max={`${leitura[leitura.length - 1]}`}
+              max={`${leituraMax}`}
               value={count}
-              onChange={(e) => setCount(e.target.valueAsNumber)}
+              onChange={(e) => {
+                fetchData(urlBase + e.target.valueAsNumber, "leituras");
+                setCount(e.target.valueAsNumber);
+              }}
             />
             <DisplayCounter
               type="number"
               name="tamanho"
-              max={`${leitura[leitura.length - 1]}`}
+              min="1"
+              max={`${leituraMax}`}
               value={count}
-              onChange={(e) => setCount(e.target.valueAsNumber)}
+              onChange={(e) => {
+                fetchData(urlBase + e.target.valueAsNumber, "leituras");
+                setCount(e.target.valueAsNumber);
+              }}
             />
           </InputWrapper>
         </MainContainer>

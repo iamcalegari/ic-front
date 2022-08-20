@@ -37,7 +37,7 @@ const VetoresEncontrados = () => {
   const urlSearchParams = new URLSearchParams(window.location.search);
   const leituras = urlSearchParams.get("leituras");
 
-  const urls = coletarUrls(range);
+  const urls = coletarUrls(leituras);
   console.log(urls);
 
   const downloadJson = (urls) => {
@@ -71,7 +71,7 @@ const VetoresEncontrados = () => {
 
   return (
     <VetoresEncontradosContainer>
-      <Title>Vetores encontrados: {range}</Title>
+      <Title>Vetores encontrados: {vetoresLeitura.length}</Title>
       <Subtitle>Download</Subtitle>
 
       <ContentWrapper>
@@ -81,7 +81,6 @@ const VetoresEncontrados = () => {
             vetoresId={vetoresId}
             vetoresLeitura={vetoresLeitura}
             vetoresTamanho={vetoresTamanho}
-            max={range}
             format={formato}
           />
         </View>
