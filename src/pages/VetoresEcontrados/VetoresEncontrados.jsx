@@ -1,7 +1,8 @@
-import React, { useState } from "react";
-import coletarUrls from "../../components/ColetarUrls";
+import React, { useEffect, useState } from "react";
 
 import ListaVetores from "../../components/ListaVetores/ListaVetores";
+import coletarUrls from "../../components/ColetarUrls"
+
 import {
   Button,
   ContentWrapper,
@@ -18,28 +19,37 @@ import {
 } from "./VetoresEncontrados.styles";
 
 const VetoresEncontrados = () => {
-  const [vetoresId, setVetoresId] = useState(
-    localStorage.getItem("vetoresId").split(",")
-  );
-
-  const [vetoresTamanho, setVetoresTamanho] = useState(
-    localStorage.getItem("vetoresTamanho").split(",")
-  );
-
-  const [vetoresLeitura, setVetoresLeitura] = useState(
-    localStorage.getItem("vetoresLeitura").split(",")
-  );
-
-  const [formato, setFormato] = useState("json");
-
-  const [count, setCount] = useState(0);
+  const baseUrl = "https://ic-iot.herokuapp.com/";
 
   const urlSearchParams = new URLSearchParams(window.location.search);
   const leituras = urlSearchParams.get("leituras");
 
-  const urls = coletarUrls(leituras);
-  console.log(urls);
+  const [id, setId] = useState(null);
+  const [leitura, setLeitura] = useState(null);
+  const [tamanho, setTamanho] = useState(null);
 
+  const [count, setCount] = useState(0);
+  const [formato, setFormato] = useState('json');
+
+
+
+  useEffect(() => {
+    fetch(baseUrl+'api/vetores/coletarid/'+leituras, {
+      method: 'GET',
+    })
+    .then((response) => response.json())
+    .then((result) => {
+      // console.log('Success:', result);
+      setId(result.id);
+      setLeitura(result.leitura);
+      setTamanho(result.tamanho);
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });    
+  },[]);
+
+   
   const downloadJson = (urls) => {
     return urls.map((url, i) => {
       console.log(url);
@@ -50,41 +60,52 @@ const VetoresEncontrados = () => {
       );
     });
   };
-  const downloadTxt = (urls) => {
-    return urls.map((url, i) => {
-      console.log(url);
-      return (
-        <div>
-          <iframe src={url} key={i}></iframe>
-        </div>
-      );
-    });
-  };
+const downloadTxt = (urls) => {
+  return urls.map((url, i) => {
+    console.log(url);
+    return (
+      <div>
+        <iframe src={url} key={i}></iframe>
+      </div>
+    );
+  });
+};
 
-  const DownloadAll = ({ formato }) => {
-    if (formato === "json") {
-      return downloadJson(urls.urlJson);
-    } else {
-      return downloadTxt(urls.urlTxt);
-    }
-  };
+const DownloadAll = ( formato, urls ) => {
+  if (formato === "json") {
+    return downloadJson(urls);
+  } else {
+    return downloadTxt(urls);
+  }
+};
+
+  useEffect(()=>{
+    <DownloadAll formato={formato} url={()=> coletarUrls({
+      vetoresId:id,
+      vetoresLeitura:leitura,
+      format:formato,
+    })
+}></DownloadAll>    
+  },[count])
+
+  
 
   return (
     <VetoresEncontradosContainer>
-      <Title>Vetores encontrados: {vetoresLeitura.length}</Title>
+      {id && <Title>Vetores encontrados: {id.length}</Title>}
       <Subtitle>Download</Subtitle>
 
       <ContentWrapper>
         <View>
           <HeaderList>Lista de Vetores</HeaderList>
-          <ListaVetores
-            vetoresId={vetoresId}
-            vetoresLeitura={vetoresLeitura}
-            vetoresTamanho={vetoresTamanho}
-            format={formato}
+          {id && <ListaVetores
+          vetoresId={id}
+          vetoresLeitura={leitura}
+          format={formato}
           />
+        }
+       
         </View>
-
         <InputWrapper>
           <SubmitWrapper>
             <Button
@@ -95,7 +116,12 @@ const VetoresEncontrados = () => {
               Baixar todos
             </Button>
             <div style={{ display: "none" }}>
-              {count && <DownloadAll formato={formato}></DownloadAll>}
+              {count && <DownloadAll formato={formato} url={()=> coletarUrls({
+                        vetoresId:id,
+                        vetoresLeitura:leitura,
+                        format:formato,
+                      })
+              }></DownloadAll>}
             </div>
           </SubmitWrapper>
           <Select

@@ -18,32 +18,29 @@ import {
 
 const Home = () => {
   const [count, setCount] = useState(1);
-  const urlBase = "https://ic-iot.herokuapp.com/api/vetores/coletarid/";
+  const [dataApi, setDataApi] = useState({});
 
-  const [apiColetarIdLeituras, setApiColetarIdLeituras] = useState(
-    `${urlBase}1`
-  );
+  const baseUrl = "https://ic-iot.herokuapp.com/api/vetores/coletarid/";
 
-  const fetchData = async (api, option) => {
-    try {
-      const res = await fetch(api);
-      if (res.status === 200) {
-        const data = await res.json();
-        // setId(data.id);
-        localStorage.setItem("vetoresId", data.id);
-        localStorage.setItem("vetoresTamanho", data.tamanho);
-        localStorage.setItem("vetoresLeitura", data.leitura);
-        localStorage.setItem("vetoresLeituraMax", data.leituraMax);
-      } else {
-        throw "Error";
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-  const leituraMax = localStorage.getItem("vetoresLeituraMax");
-  fetchData(apiColetarIdLeituras, "leituras");
-  let timeout;
+  
+  useEffect(() => {
+    fetch(baseUrl+'todas', {
+      method: 'GET',
+    })
+    .then((response) => response.json())
+    .then((result) => {
+      console.log('Success:', result);
+      setDataApi(result);
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });    
+  },[])
+
+
+  
+  const {leituraMax} = dataApi;
+  
   return (
     <HomeContainer>
       <Title>Interface de Download</Title>
@@ -62,10 +59,9 @@ const Home = () => {
               max={`${leituraMax}`}
               value={count}
               onChange={(e) => {
-                fetchData(urlBase + e.target.valueAsNumber, "leituras");
                 setCount(e.target.valueAsNumber);
               }}
-            />
+            />            
             <DisplayCounter
               type="number"
               name="tamanho"
@@ -73,7 +69,6 @@ const Home = () => {
               max={`${leituraMax}`}
               value={count}
               onChange={(e) => {
-                fetchData(urlBase + e.target.valueAsNumber, "leituras");
                 setCount(e.target.valueAsNumber);
               }}
             />

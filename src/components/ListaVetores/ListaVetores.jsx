@@ -11,26 +11,20 @@ const ListaVetores = ({
   vetoresId,
   vetoresLeitura,
   vetoresTamanho,
-  format,
+  format, 
 }) => {
-  const [count, setCount] = useState(0);
-
   const baseUrlApi = "https://ic-iot.herokuapp.com/api/vetores/";
   const listarVetores = (vetores) => {
     return vetores.map((vet, index) => {
-      // if (count <= +vetoresTamanho[index]) {
-      //   // setCount(1);
-      // } else {
-      //   setCount(1);
-      // }
+      
       return (
-        <StyledAnchor
+        <StyledAnchor key={index}
           href={`${baseUrlApi + vetoresId[index]}/${index + 1}/${
             vetoresLeitura[index]
           }/baixar/${format}`}
         >
-          <ListItem>
-            <stong>🔹Leitura {vetoresLeitura[index]} - </stong>Vetor {index + 1}{" "}
+          <ListItem >
+            <span style={{fontStyle: "italic"}}>🔹Leitura {vetoresLeitura[index]} - </span>Vetor {index + 1}{" "}
             - (tamanho: {vet})
           </ListItem>
         </StyledAnchor>
