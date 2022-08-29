@@ -7,7 +7,6 @@ const fetchData = async (api, option) => {
       const res = await fetch(api);
       if (res.status === 200) {
         const data = await res.json();
-        // setId(data.id);
         if (option === "leituras") {
           localStorage.setItem("vetoresId", data.id);
           localStorage.setItem("vetoresTamanho", data.tamanho);

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 
 import ListaVetores from "../../components/ListaVetores/ListaVetores";
-import coletarUrls from "../../components/ColetarUrls"
+import coletarUrls from "../../components/ColetarUrls";
+import BaixarTodosVetores from "../../components/BaixarTodosVetores";
 
 import {
   Button,
@@ -9,11 +10,9 @@ import {
   HeaderList,
   InputWrapper,
   Select,
-  StyledLink,
   SubmitWrapper,
   Subtitle,
   Title,
-  // VetoresContainer,
   VetoresEncontradosContainer,
   View,
 } from "./VetoresEncontrados.styles";
@@ -24,71 +23,37 @@ const VetoresEncontrados = () => {
   const urlSearchParams = new URLSearchParams(window.location.search);
   const leituras = urlSearchParams.get("leituras");
 
-  const [id, setId] = useState(null);
-  const [leitura, setLeitura] = useState(null);
-  const [tamanho, setTamanho] = useState(null);
+  const [id, setId] = useState([]);
+  const [leitura, setLeitura] = useState([]);
+  const [formato, setFormato] = useState("json");
+  const [tamanho, setTamanho] = useState([]);
+  const [urls, setUrls] = useState([]);
 
   const [count, setCount] = useState(0);
-  const [formato, setFormato] = useState('json');
-
-
 
   useEffect(() => {
-    fetch(baseUrl+'api/vetores/coletarid/'+leituras, {
-      method: 'GET',
+    fetch(baseUrl + "api/vetores/coletarid/" + leituras, {
+      method: "GET",
     })
-    .then((response) => response.json())
-    .then((result) => {
-      // console.log('Success:', result);
-      setId(result.id);
-      setLeitura(result.leitura);
-      setTamanho(result.tamanho);
-    })
-    .catch((error) => {
-      console.error('Error:', error);
-    });    
-  },[]);
+      .then((response) => response.json())
+      .then((result) => {
+        setId(result.id);
+        setLeitura(result.leitura);
+        setTamanho(result.tamanho);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  }, []);
 
-   
-  const downloadJson = (urls) => {
-    return urls.map((url, i) => {
-      console.log(url);
-      return (
-        <div>
-          <iframe src={url} key={i}></iframe>
-        </div>
-      );
+  useEffect(() => {
+    let u = coletarUrls({
+      vetoresId: id,
+      vetoresLeitura: leitura,
+      format: formato,
     });
-  };
-const downloadTxt = (urls) => {
-  return urls.map((url, i) => {
-    console.log(url);
-    return (
-      <div>
-        <iframe src={url} key={i}></iframe>
-      </div>
-    );
-  });
-};
-
-const DownloadAll = ( formato, urls ) => {
-  if (formato === "json") {
-    return downloadJson(urls);
-  } else {
-    return downloadTxt(urls);
-  }
-};
-
-  useEffect(()=>{
-    <DownloadAll formato={formato} url={()=> coletarUrls({
-      vetoresId:id,
-      vetoresLeitura:leitura,
-      format:formato,
-    })
-}></DownloadAll>    
-  },[count])
-
-  
+    setUrls(u);
+  }, [count, formato]);
 
   return (
     <VetoresEncontradosContainer>
@@ -98,30 +63,27 @@ const DownloadAll = ( formato, urls ) => {
       <ContentWrapper>
         <View>
           <HeaderList>Lista de Vetores</HeaderList>
-          {id && <ListaVetores
-          vetoresId={id}
-          vetoresLeitura={leitura}
-          format={formato}
-          />
-        }
-       
+          {id && (
+            <ListaVetores
+              vetoresId={id}
+              vetoresLeitura={leitura}
+              vetoresTamanho={tamanho}
+              format={formato}
+            />
+          )}
         </View>
         <InputWrapper>
           <SubmitWrapper>
             <Button
-              onClick={() => {
+              onClick={(e) => {
+                e.stopPropagation();
                 setCount(count + 1);
               }}
             >
               Baixar todos
             </Button>
             <div style={{ display: "none" }}>
-              {count && <DownloadAll formato={formato} url={()=> coletarUrls({
-                        vetoresId:id,
-                        vetoresLeitura:leitura,
-                        format:formato,
-                      })
-              }></DownloadAll>}
+              {count && <BaixarTodosVetores urls={urls} />}
             </div>
           </SubmitWrapper>
           <Select

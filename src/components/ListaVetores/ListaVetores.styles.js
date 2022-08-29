@@ -21,10 +21,6 @@ export const ListItem = styled.div`
   }
 `;
 
-// export const Text = styled.text`
-//   padding: 1rem rem 1rem 0rem;
-// `;
-
 export const StyledAnchor = styled.a`
   text-decoration: none;
   color: #001e82;
