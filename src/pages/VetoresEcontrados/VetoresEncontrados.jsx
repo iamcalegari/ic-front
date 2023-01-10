@@ -18,7 +18,7 @@ import {
 } from "./VetoresEncontrados.styles";
 
 const VetoresEncontrados = () => {
-  const baseUrl = "https://ic-iot.herokuapp.com/";
+  const baseUrl = "https://apic.onrender.com/";
 
   const urlSearchParams = new URLSearchParams(window.location.search);
   const leituras = urlSearchParams.get("leituras");

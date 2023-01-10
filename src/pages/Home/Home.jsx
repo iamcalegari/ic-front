@@ -20,27 +20,24 @@ const Home = () => {
   const [count, setCount] = useState(1);
   const [dataApi, setDataApi] = useState({});
 
-  const baseUrl = "https://ic-iot.herokuapp.com/api/vetores/coletarid/";
+  const baseUrl = "https://apic.onrender.com/api/vetores/coletarid/";
 
-  
   useEffect(() => {
-    fetch(baseUrl+'todas', {
-      method: 'GET',
+    fetch(baseUrl + "todas", {
+      method: "GET",
     })
-    .then((response) => response.json())
-    .then((result) => {
-      console.log('Success:', result);
-      setDataApi(result);
-    })
-    .catch((error) => {
-      console.error('Error:', error);
-    });    
-  },[])
+      .then((response) => response.json())
+      .then((result) => {
+        console.log("Success:", result);
+        setDataApi(result);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  }, []);
 
+  const { leituraMax } = dataApi;
 
-  
-  const {leituraMax} = dataApi;
-  
   return (
     <HomeContainer>
       <Title>Interface de Download</Title>
@@ -61,7 +58,7 @@ const Home = () => {
               onChange={(e) => {
                 setCount(e.target.valueAsNumber);
               }}
-            />            
+            />
             <DisplayCounter
               type="number"
               name="tamanho"

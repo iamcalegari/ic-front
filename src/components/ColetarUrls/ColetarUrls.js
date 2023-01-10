@@ -16,7 +16,7 @@ const coletarUrls = ({ vetoresId, vetoresLeitura, format }) => {
 
   let urls = [];
 
-  const baseUrlApi = "https://ic-iot.herokuapp.com/api/vetores/";
+  const baseUrlApi = "https://apic.onrender.com/api/vetores/";
 
   vetoresObj.map((item, index) => {
     urls.push(
