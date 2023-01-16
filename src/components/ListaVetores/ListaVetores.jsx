@@ -28,7 +28,7 @@ const ListaVetores = ({
 
   vetoresObj.sort((a, b) => a.leitura - b.leitura);
 
-  const baseUrlApi = "https://ic-iot.herokuapp.com/api/vetores/";
+  const baseUrlApi = "https://apic.onrender.com/api/vetores/";
   const listarVetores = (vetores) => {
     return vetores.map((item, index) => {
       return (
